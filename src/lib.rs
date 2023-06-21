@@ -5,6 +5,7 @@ use rand::{thread_rng, RngCore};
 #[cfg(test)]
 mod tests {
     use super::SecretData;
+
     #[test]
     fn it_works() {}
 
@@ -93,9 +94,16 @@ mod tests {
     }
 }
 
+#[derive(Clone)]
 pub struct SecretData {
     pub secret_data: Option<String>,
     pub coefficients: Vec<Vec<u8>>,
+}
+
+impl PartialEq for SecretData {
+    fn eq(&self, other: &Self) -> bool {
+        self.secret_data.eq(&other.secret_data) && self.coefficients.eq(&other.coefficients)
+    }
 }
 
 #[derive(Debug)]
